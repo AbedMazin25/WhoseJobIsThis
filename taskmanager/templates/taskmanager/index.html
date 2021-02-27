@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Task Manager</title>
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">My tasks are displayed in this page</a></h1>
+    </header>
+
+    {% for task in tasks %}
+      <article>
+        <h2>title: {{ task.title }}</h2>
+        <div><a href = "">user: {{ task.user }}</a></div>
+        <div><time>estimated date: {{ task.estimated_date }}</time></div>
+        <time>deadline: {{ task.deadline }}</time>
+        <div>value: {{ task.value }} </div>
+        <div> ----------------------------------------------------------------</div>
+      </article>
+    {% endfor %}
+  </body>
+</html>
+
+
+
