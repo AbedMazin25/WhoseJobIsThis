@@ -3,22 +3,46 @@
   <head>
     <meta charset="utf-8">
     <title> Task Manager</title>
+    <style> 
+        body {
+            background-color:powderblue;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;    
+        }
+    </style>
   </head>
   <body>
     <header>
-      <h1><a href="/">My tasks are displayed in this page</a></h1>
+      <h1>Task Manager System</h1>
     </header>
-
-    {% for task in tasks %}
-      <article>
-        <h2>title: {{ task.title }}</h2>
-        <div><a href = "">user: {{ task.user }}</a></div>
-        <div><time>estimated date: {{ task.estimated_date }}</time></div>
-        <time>deadline: {{ task.deadline }}</time>
-        <div>value: {{ task.value }} </div>
-        <div> ----------------------------------------------------------------</div>
-      </article>
-    {% endfor %}
+    <table>
+        <caption>List of tasks</caption>
+        <tr>
+            <th>title</th>
+            <th><a href="">user</a></th>
+            <th>estimated date</th>
+            <th>deadline</th>
+            <th>value</th>
+        </tr>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</h2>
+                <td>{{ task.user }}</h2>
+                <td><time>{{ task.estimated_date }}</time</h2>
+                <td><time>{{ task.deadline }}</time</h2>
+                <td>{{ task.value }}</h2>
+            </tr>
+        {% endfor %}
+    </table>
+    <footer>
+        <br><br><br>
+        <a href="">Terms and conditions</a>
+        <a href="">About us</a>
+    </footer>
   </body>
 </html>
 
