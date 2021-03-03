@@ -27,17 +27,38 @@
             <th>estimated date</th>
             <th>deadline</th>
             <th>value</th>
+            <th>more info</th>
         </tr>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.title }}</h2>
-                <td>{{ task.user }}</h2>
-                <td><time>{{ task.estimated_date }}</time></h2>
-                <td><time>{{ task.deadline }}</time></h2>
-                <td>{{ task.value }}</h2>
-            </tr>
-        {% endfor %}
+        {% if page_obj %}
+            {% for task in page_obj %}
+                <tr>
+                    <td>{{ task.title }}</h2>
+                    <td>{{ task.user }}</h2>
+                    <td><time>{{ task.estimated_dur }}&nbsp; days</time></h2>
+                    <td><time>{{ task.deadline }}</time></h2>
+                    <td>{{ task.value }}</h2>
+                    <td><button onclick="document.location='/tasks/{{ task.id }}'">info</button></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <p>task not found</p>
+        {% endif %}
     </table>
+    <br>
+    <div class="pagination">
+		<span class="step-links">
+			{% if page_obj.has_previous %}
+				<a href="?page={{ page_obj.previous_page_number }}">previous</a>
+			{% endif %}
+			<span class="current">
+				Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+			</span>
+			{% if page_obj.has_next %}
+				<a href="?page={{ page_obj.next_page_number }}">next</a>
+				<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+			{% endif %}
+		</span>
+	</div>
     <footer>
         <br><br><br>
         <a href="">Terms and conditions</a>
