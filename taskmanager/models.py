@@ -1,7 +1,9 @@
-from django.db import models
 from django.conf import settings
-from hello.models import Post
+from django.db import models
 from django.utils import timezone
+
+from hello.models import Post
+
 
 class Task(models.Model):
 	title = models.CharField(max_length=200)
