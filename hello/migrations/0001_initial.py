@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -16,14 +15,14 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Post',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('titile', models.CharField(max_length=200)),
-                ('text', models.TextField()),
-                ('created_date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('published_date', models.DateTimeField(blank=True, null=True)),
-                ('authos', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-        ),
-    ]
+            name='Post', fields=[
+                ('id', models.AutoField(
+                    auto_created=True, primary_key=True, serialize=False,
+                    verbose_name='ID')), ('titile', models.CharField(
+                        max_length=200)), ('text', models.TextField()),
+                ('created_date', models.DateTimeField(
+                    default=django.utils.timezone.now)),
+                ('published_date', models.DateTimeField(
+                    blank=True, null=True)), ('authos', models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL)), ], ), ]

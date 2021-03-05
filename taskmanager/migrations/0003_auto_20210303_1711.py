@@ -21,17 +21,29 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='task',
             name='dateadded',
-            field=models.DateTimeField(default=datetime.datetime(2021, 3, 3, 17, 11, 4, 224462, tzinfo=utc), verbose_name='date_added'),
+            field=models.DateTimeField(
+                default=datetime.datetime(
+                    2021,
+                    3,
+                    3,
+                    17,
+                    11,
+                    4,
+                    224462,
+                    tzinfo=utc),
+                verbose_name='date_added'),
         ),
         migrations.AddField(
             model_name='task',
             name='estimated_dur',
-            field=models.IntegerField(default=1),
+            field=models.IntegerField(
+                default=1),
         ),
         migrations.AddField(
             model_name='task',
             name='infor',
-            field=models.TextField(default=django.utils.timezone.now),
+            field=models.TextField(
+                default=django.utils.timezone.now),
             preserve_default=False,
         ),
     ]
