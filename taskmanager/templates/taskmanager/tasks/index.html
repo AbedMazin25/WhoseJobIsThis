@@ -1,21 +1,6 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title> Task Manager</title>
-    <style> 
-        body {
-            background-color:powderblue;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 15px;    
-        }
-    </style>
-  </head>
-  <body>
+{% extends 'taskmanager/index.html' %}
+{% block content %}
+<body>
     <header>
       <h1>Task Manager System</h1>
     </header>
@@ -43,7 +28,4 @@
         <a href="">About us</a>
     </footer>
   </body>
-</html>
-
-
-
+  {% endblock %}
