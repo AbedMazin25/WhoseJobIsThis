@@ -1,56 +1,61 @@
 # First Django Website
 
-This website is created for educational purposes. 
+This website is created for educational purposes.
 It stores and allocates some tasks to freelancers who are registered in the website.
 
-# Building the source code
+## Building the source code
 
-## Installing dependencies
+### Installing dependencies
+
 First, you need to install *postgresql* on your machine.
 To install it on Ubuntu open a terminal and run the following command:
 
 ```bash
-$ sudo apt-get install postgres
+ sudo apt-get install postgres
 ```
-Next, make sure *pip* is installed on your machine or install it by running 
+
+Next, make sure *pip* is installed on your machine or install it by running
 the following lines:
 
 ```bash
-$ sudo apt-get install python3
-$ sudo apt-get install python3 - pip
+ sudo apt-get install python3
+ sudo apt-get install python3 - pip
 ```
 
 After installing *pip*, install *virtualenv* on your machine:
 
 ```bash
-$ sudo pip3 install virtualenv
+ sudo pip3 install virtualenv
 ```
-Now, initiate a virtual environment by running the following command in 
+
+Now, initiate a virtual environment by running the following command in
 your project's root directory:
 
 ```bash
-$ virtualenv .venv
+ virtualenv .venv
 ```
 
 Activate it by running this command:
 
 ```bash
-$ source .venv/bin/activate
+ source .venv/bin/activate
 ```
 
 Finally, install all requirements:
 
 ```bash
-$ sudo pip3 install -r requirements.txt
+ sudo pip3 install -r requirements.txt
 ```
 
-## Configuring the database 
+### Configuring the database
+
 Now you must switch user to *postgres* and change your password:
 
 ```bash
-$ sudo su - postgres
-$ psql
+ sudo su - postgres
+ psql
 ```
+
 ```sql
 # \password
 ```
@@ -58,9 +63,10 @@ $ psql
 And, enter a new password.
 
 Now, you need to change the database password in *myfirstws/settings.py*:
-Open the file *myfirstws/settings.py* with a text editor, scroll down 
-to **DATABASES** and change the username and password fields to your postgres 
+Open the file *myfirstws/settings.py* with a text editor, scroll down
+to **DATABASES** and change the username and password fields to your postgres
 username and password.
+
 ```python
 DATABASES = {
     'default': {
@@ -74,16 +80,20 @@ DATABASES = {
 }
 
 ```
-## Migrating the models 
+
+### Migrating the models
+
 Migrate models to the database by running this command
 
 ```bash
-$ sudo python3 manage.py migrate
+ sudo python3 manage.py migrate
 ```
 
-## Deploying the website (development)
+### Deploying the website (development)
+
 Run this command to deploy the app on port 8000:
 
 ```bash
-$ sudo python3 manage.py runserver
+ sudo python3 manage.py runserver
 ```
+
