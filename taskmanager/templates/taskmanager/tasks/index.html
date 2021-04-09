@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Task Manager</title>
+    <style> 
+        body {
+            background-color:powderblue;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;    
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Task Manager System</h1>
+    </header>
+	{% if task %}
+    <table>
+        <caption>showing info for task:&nbsp; {{ task.id }}</caption>
+        <tr>
+            <th>estimated duration</th>
+            <th>value</th>
+            <th>date added</th>
+        </tr>
+        <tr>
+            <td>{{ task.estimated_dur }}&nbsp; days</td>
+            <td>{{ task.value }}</td>
+            <td>{{ task.dateadded }}</td>
+        </tr>
+    </table>
+    <p>info: &nbsp; {{ task.infor }}</p>
+	{% else %}
+            <p>task not found</p>
+    {% endif %}
+    <footer>
+        <br><br><br>
+        <a href="">Terms and conditions</a>
+        <a href="">About us</a>
+    </footer>
+  </body>
+</html>
+
+
+

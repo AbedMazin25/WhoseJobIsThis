@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Hello Django</title>
+  </head>
+  <body>
+    This is a hello world message from my new django web server
+    <header>
+      <h1><a href="/">My posts are diplayed here</a></h1>
+    </header>
+
+    {% for post in posts %}
+      <article>
+        <time>published: {{ post.published_date }}</time>
+        <h2><a href = "">{{ post.title }}</a></h2>
+        <p>{{ post.text|linebreaksbr }}</p>
+      </article>
+    {% endfor %}
+  </body>
+</html>
