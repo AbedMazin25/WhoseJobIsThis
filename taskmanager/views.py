@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.http import Http404
-from django.core.paginator import Paginator 
-from .models import Task 
+from django.shortcuts import render
+
+from .models import Task
+
 
 def render_page(request):
 	tasks = Task.objects.all().order_by('deadline')
