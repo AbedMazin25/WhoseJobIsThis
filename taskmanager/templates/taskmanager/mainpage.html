@@ -1,53 +1,82 @@
 {% extends 'taskmanager/index.html' %}
 {% block content %}
 <body>
-    <header>
-      <h1>Task Manager System</h1>
-    </header>
-    <table>
-        <caption>List of tasks</caption>
-        <tr>
-            <th>title</th>
-            <th><a href="">user</a></th>
-            <th>estimated date</th>
-            <th>deadline</th>
-            <th>value</th>
-            <th>more info</th>
-        </tr>
-        {% if page_obj %}
-            {% for task in page_obj %}
+<div class="container-fluid">
+    <div class="row">
+        <div id="main-content" class="col-md-9">
+            <h1>Task Manager System</h1>
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ task.title }}</h2>
-                    <td>{{ task.user }}</h2>
-                    <td><time>{{ task.estimated_dur }}&nbsp; days</time></h2>
-                    <td><time>{{ task.deadline }}</time></h2>
-                    <td>{{ task.value }}</h2>
-                    <td><button onclick="document.location='/tasks/{{ task.id }}'">info</button></td>
+                    <th>Title</th>
+                    <th>Value</th>
+                    <th>Time Estimation</th>
+                    <th>Employer</th>
+                    <th>Info</th>
                 </tr>
-            {% endfor %}
-        {% else %}
-            <p>task not found</p>
-        {% endif %}
-    </table>
-    <br>
-    <div class="pagination">
-		<span class="step-links">
-			{% if page_obj.has_previous %}
-				<a href="?page={{ page_obj.previous_page_number }}">previous</a>
-			{% endif %}
-			<span class="current">
-				Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-			</span>
-			{% if page_obj.has_next %}
-				<a href="?page={{ page_obj.next_page_number }}">next</a>
-				<a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-			{% endif %}
-		</span>
-	</div>
+                </thead>
+                <tbody>
+                {% for task in page_obj %}
+		        <tr>
+		            <td>{{ task.title }}</td>
+		            <td>{{ task.value }}</td>
+		            <td>{{ task.estimated_dur }}</td>
+		            <td>{{ task.user }}</td>
+		            <td>
+		                <a href="/tasks/{{ task.id }}" class="btn btn-default">More info</a>
+		            </td>
+		        </tr>
+		{% endfor %}
+                </tbody>
+            </table>
+            <div id="tasks-paginator">
+                <ul class="pagination">
+                    {% for p in page_count %}
+                    	{% if p == page_number %}
+                    		<li class="active"><a href="/?page={{ p }}">{{ p }}</a></li>
+                    	{% else %}
+                    		<li><a href="/?page={{ p }}">{{ p }}</a></li>
+                    	{% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            
+        </div>
+        <div class="col-md-3">
+            <h3> Sign in </h3>
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control" name="email" placeholder="email">
+                </div>
+                <button class="btn btn-default btn-block">Sign in</button>
+            </form>
+            <hr/>
+            <h3>Register</h3>
+            <form>
+                <div class="form-group">
+                    <input name="username" maxlength="100" class="form-control" placeholder="username">
+                </div>
+                <div class="form-group">
+                    <input name="email" class="form-control" placeholder="email" type="email">
+                </div>
+                <div class="form-group">
+                    <input name="password" class="form-control" placeholder="password" type="password">
+                </div>
+                <div class="form-group">
+                    <input name="password_rpt" class="form-control" placeholder="comfirm password" type="password">
+                </div>
+                <div class="form-group">
+                    <label><input name="master" type="checkbox">Employer</label>
+                </div>
+                <button class="btn btn-default btn-block">Register</button>
+            </form>
+        </div>
+    </div>
     <footer>
         <br><br><br>
         <a href="">Terms and conditions</a>
         <a href="">About us</a>
     </footer>
+</div>
 </body>
 {% endblock %}
