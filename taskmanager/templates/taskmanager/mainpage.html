@@ -31,11 +31,16 @@
             </table>
             <div id="tasks-paginator">
                 <ul class="pagination">
-                    <li class="active"><a href="?page=1">1</a></li>
-                    <li><a href="?page=2">2</a></li>
-                    <li><a href="?page=3">3</a></li>
+                    {% for p in page_count %}
+                    	{% if p == page_number %}
+                    		<li class="active"><a href="/?page={{ p }}">{{ p }}</a></li>
+                    	{% else %}
+                    		<li><a href="/?page={{ p }}">{{ p }}</a></li>
+                    	{% endif %}
+                    {% endfor %}
                 </ul>
             </div>
+            
         </div>
         <div class="col-md-3">
             <h3> Sign in </h3>
