@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <div class="row">
         <div id="main-content" class="col-md-9">
-            <h1>Task Manager System</h1>
+            <h1>Whose Job Is This?</h1>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -44,14 +44,13 @@
         </div>
         {% if is_login %}
             <div class="col-md-3">
-                <h5>You are loged in as {{ current_user }}</h5>
+                <h5>You are logged in as {{ current_user }}</h5>
                 <a class="btn btn-default btn-block" href="">Add a task</a>
-                <a class="btn btn-default btn-block">Logout</a>
+                <a href="{% url 'taskmanager:weblogout' %}"class="btn btn-default btn-block">Logout</a>
             </div>
         {% else %}
             <div class="col-md-3">
                 <h3> Sign in </h3>
-                {% csrf_token %}
                 <form action="{% url 'taskmanager:signin' %}" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
@@ -61,7 +60,8 @@
                 </form>
                 <hr/>
                 <h3>Register</h3>
-                <form>
+                <form action="{% url 'taskmanager:registeruser' %}" method="POST">
+                    {% csrf_token %}
                     <div class="form-group">
                         <input name="username" maxlength="100" class="form-control" placeholder="username">
                     </div>
@@ -72,12 +72,12 @@
                         <input name="password" class="form-control" placeholder="password" type="password">
                     </div>
                     <div class="form-group">
-                        <input name="password_rpt" class="form-control" placeholder="comfirm password" type="password">
+                        <input name="password_rpt" class="form-control" placeholder="confirm password" type="password">
                     </div>
                     <div class="form-group">
                         <label><input name="master" type="checkbox">Employer</label>
                     </div>
-                    <button class="btn btn-default btn-block">Register</button>
+                    <button type="submit" class="btn btn-default btn-block">Register</button>
                 </form>
             </div>
         {% endif %}

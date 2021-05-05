@@ -1,12 +1,12 @@
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages 
 
 from .models import Task, UserMatch
-from .forms import SigninWithEmailForm
+from .forms import SigninWithEmailForm, RegisterUserForm
 from .genstr import generate_string
 
 def weblogin(request, email_str):
@@ -20,6 +20,27 @@ def weblogin(request, email_str):
 	login(request, current_user)
 	messages.success(request, 'you are now logged in as {}!'.format(current_user))
 	return redirect('taskmanager:render_page')
+
+def weblogout(request):
+	logout(request)
+	messages.success(request, 'You are logged out of your account!')
+	return redirect('taskmanager:render_page')
+
+def registeruser(request):
+	registerform = RegisterUserForm(request.POST)
+
+	if registerform.is_valid():
+		username = request.POST['username']
+		email = request.POST['email']
+		password = request.POST['password']
+		password_rpt = request.POST['password_rpt']
+		if password != password_rpt:
+			messages.success(request, 'Passwords do not match.')
+			return redirect('taskmanager:render_page')
+		user = User.objects.create_user(username=username, email=email, password=password)
+		messages.success(request, 'Created user {}'.format(user))
+		return redirect('taskmanager:render_page')
+	return HttpResponse("ridi")
 
 def signin(request):
 	email = "not entered"

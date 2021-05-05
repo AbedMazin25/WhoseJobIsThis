@@ -10,4 +10,6 @@ urlpatterns = [
     path('tasks/<int:task_id>/', views.show_info, name='show_info'),
     path('signin/', views.signin, name='signin'),
     path('weblogin/<str:email_str>/', views.weblogin, name='weblogin'),
+    path('weblogout/', views.weblogout, name='weblogout'),
+    path('register/', views.registeruser, name='registeruser'),
 ]
