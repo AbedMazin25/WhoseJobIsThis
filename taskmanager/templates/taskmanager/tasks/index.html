@@ -1,31 +1,40 @@
-{% extends 'taskmanager/index.html' %}
+{% extends 'taskmanager/base.html' %}
 {% block content %}
-<body>
-    <header>
-      <h1>Task Manager System</h1>
-    </header>
-	{% if task %}
-    <table>
-        <caption>showing info for task:&nbsp; {{ task.id }}</caption>
-        <tr>
-            <th>estimated duration</th>
-            <th>value</th>
-            <th>date added</th>
-        </tr>
-        <tr>
-            <td>{{ task.estimated_dur }}&nbsp; days</td>
-            <td>{{ task.value }}</td>
-            <td>{{ task.dateadded }}</td>
-        </tr>
-    </table>
-    <p>info: &nbsp; {{ task.infor }}</p>
-	{% else %}
-            <p>task not found</p>
-    {% endif %}
+  <body>
+<div class="container-fluid">
+    <div class="row">
+        <div id="main-content" class="col-md-9">
+            <h1> Task Manager System</h1>
+            <div>
+            {% if task %}
+                <div class="col-sm-12">
+                    <h3 style="display: inline-block">{{ task.title }}</h3>
+                    <a class="btn btn-default">I accept this job</a>
+                    <hr/>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4"><time>created on {{ task.dateadded }}</time></div>
+                <div class="col-sm-3">${{ task.value }}</div>
+                <div class="col-sm-3"><time>deadline {{ task.deadline }}</time></div>
+                <div class="col-sm-12">
+                	{{ task.infor }} 
+                </div>
+            {% else %}
+            	<p>task not found</p>
+            {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <h5> You have logged in as RandomUser</h5>
+            <a class="btn btn-default btn-block" href="index.html">Main page</a>
+            <a class="btn btn-default btn-block">Exit</a>
+        </div>
+    </div>
     <footer>
         <br><br><br>
         <a href="">Terms and conditions</a>
         <a href="">About us</a>
     </footer>
-  </body>
+</div>
+</body>
   {% endblock %}

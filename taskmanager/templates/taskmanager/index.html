@@ -1,22 +1,92 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title> Task Manager</title>
-    <style> 
-        body {
-            background-color:powderblue;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 15px;    
-        }
-    </style>
-  </head>
-  	{% block content %} {% endblock %}
-</html>
-
-
-
+{% extends 'taskmanager/base.html' %}
+{% block content %}
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div id="main-content" class="col-md-9">
+            <h1>Task Manager System</h1>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Value</th>
+                    <th>Time Estimation</th>
+                    <th>Employer</th>
+                    <th>Info</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in page_obj %}
+		        <tr>
+		            <td>{{ task.title }}</td>
+		            <td>{{ task.value }}</td>
+		            <td>{{ task.estimated_dur }}</td>
+		            <td>{{ task.user }}</td>
+		            <td>
+		                <a href="{% url 'taskmanager:show_info' task.id %}" class="btn btn-default">More info</a>
+		            </td>
+		        </tr>
+		{% endfor %}
+                </tbody>
+            </table>
+            <div id="tasks-paginator">
+                <ul class="pagination">
+                    {% for p in page_count %}
+                    	{% if p == page_number %}
+                    		<li class="active"><a href="/?page={{ p }}">{{ p }}</a></li>
+                    	{% else %}
+                    		<li><a href="/?page={{ p }}">{{ p }}</a></li>
+                    	{% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            
+        </div>
+        {% if is_login %}
+            <div class="col-md-3">
+                <h5>You are loged in as {{ current_user }}</h5>
+                <a class="btn btn-default btn-block" href="">Add a task</a>
+                <a class="btn btn-default btn-block">Logout</a>
+            </div>
+        {% else %}
+            <div class="col-md-3">
+                <h3> Sign in </h3>
+                {% csrf_token %}
+                <form action="{% url 'taskmanager:signin' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="email">
+                    </div>
+                    <button type="submit" class="btn btn-default btn-block">Sign in</button>
+                </form>
+                <hr/>
+                <h3>Register</h3>
+                <form>
+                    <div class="form-group">
+                        <input name="username" maxlength="100" class="form-control" placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <input name="email" class="form-control" placeholder="email" type="email">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" class="form-control" placeholder="password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <input name="password_rpt" class="form-control" placeholder="comfirm password" type="password">
+                    </div>
+                    <div class="form-group">
+                        <label><input name="master" type="checkbox">Employer</label>
+                    </div>
+                    <button class="btn btn-default btn-block">Register</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    <footer>
+        <br><br><br>
+        <a href="">Terms and conditions</a>
+        <a href="">About us</a>
+    </footer>
+</div>
+</body>
+{% endblock %}
