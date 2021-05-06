@@ -34,13 +34,18 @@ def registeruser(request):
 		email = request.POST['email']
 		password = request.POST['password']
 		password_rpt = request.POST['password_rpt']
-		if password != password_rpt:
-			messages.success(request, 'Passwords do not match.')
+		username_list = [u.username for u in User.objects.all()]
+		email_list = [u.email for u in User.objects.all()]
+		if username in username_list:
+			messages.success(request, 'username {} already exists'.format(username))
+			return redirect('taskmanager:render_page')
+		if email in email_list:
+			messages.success(request, 'email {} already exists'.format(email))
 			return redirect('taskmanager:render_page')
 		user = User.objects.create_user(username=username, email=email, password=password)
 		messages.success(request, 'Created user {}'.format(user))
 		return redirect('taskmanager:render_page')
-	return HttpResponse("ridi")
+	return HttpResponse("An error occurred while registering new user!")
 
 def signin(request):
 	email = "not entered"
@@ -54,13 +59,10 @@ def signin(request):
 			user = None
 		if user is not None:
 			auth_list = UserMatch.objects.all()
-			str_list = []
-			for u in auth_list:
-				str_list.append(u.estring)
+			str_list = [u.estring for u in auth_list]
 			email_str = generate_string()
 			while email_str in str_list:
 				email_str = generate_string()
-			email_str = generate_string()
 			usrmtch = UserMatch(estring=email_str, user=user)
 			usrmtch.save()
 			message = 'http://localhost:8000/weblogin/{}/'.format(email_str)

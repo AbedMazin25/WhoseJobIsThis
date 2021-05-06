@@ -26,18 +26,27 @@
 		                <a href="{% url 'taskmanager:show_info' task.id %}" class="btn btn-default">More info</a>
 		            </td>
 		        </tr>
-		{% endfor %}
+		        {% endfor %}
                 </tbody>
             </table>
             <div id="tasks-paginator">
                 <ul class="pagination">
-                    {% for p in page_count %}
-                    	{% if p == page_number %}
-                    		<li class="active"><a href="/?page={{ p }}">{{ p }}</a></li>
-                    	{% else %}
-                    		<li><a href="/?page={{ p }}">{{ p }}</a></li>
-                    	{% endif %}
-                    {% endfor %}
+                    {% if page_number is None %}
+                        <li class="active"><a href="/?page=1">1</a></li>
+                        {% for p in page_count %}
+                            {% if p != '1' %}
+                                <li><a href="/?page={{ p }}">{{ p }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        {% for p in page_count %}
+                            {% if p == page_number %}
+                                <li class="active"><a href="/?page={{ p }}">{{ p }}</a></li>
+                            {% else %}
+                                <li><a href="/?page={{ p }}">{{ p }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
             
@@ -51,7 +60,7 @@
         {% else %}
             <div class="col-md-3">
                 <h3> Sign in </h3>
-                <form action="{% url 'taskmanager:signin' %}" method="POST">
+                <form name="signin" action="{% url 'taskmanager:signin' %}" onsubmit="return validateSignForm()" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="email" class="form-control" name="email" placeholder="email">
@@ -60,7 +69,7 @@
                 </form>
                 <hr/>
                 <h3>Register</h3>
-                <form action="{% url 'taskmanager:registeruser' %}" method="POST">
+                <form name="register" action="{% url 'taskmanager:registeruser' %}" onsubmit="return validateRegForm()" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
                         <input name="username" maxlength="100" class="form-control" placeholder="username">
@@ -79,11 +88,39 @@
                     </div>
                     <button type="submit" class="btn btn-default btn-block">Register</button>
                 </form>
+                <script>
+                    function validateSignForm() {
+                        var email = document.forms["signin"]["email"].value;
+                        if (email == "") {
+                            alert("Please enter a valid email.");
+                            return false;
+                        }
+                        return true;
+                    }
+                </script>
+                <script>
+                    function validateRegForm() {
+                        var usrname = document.forms["register"]["username"].value;
+                        var email = document.forms["register"]["email"].value;
+                        var pass = document.forms["register"]["password"].value;
+                        var pass_rpt = document.forms["register"]["password_rpt"].value;
+                        if (usrname == "" || email == "" || pass == "" || pass_rpt == "") {
+                            alert("Please fill all fields and try again!");
+                            return false;
+                        }
+                        if (pass != pass_rpt) {
+                            alert("Passwords do not match.")
+                            return false;
+                        }
+                        return true;
+
+                    }
+                </script>
             </div>
         {% endif %}
     </div>
     <footer>
-        <br><br><br>
+        <br><br>
         <a href="">Terms and conditions</a>
         <a href="">About us</a>
     </footer>
