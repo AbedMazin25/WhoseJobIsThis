@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.urls import path
 
 from . import views
@@ -12,4 +11,5 @@ urlpatterns = [
     path('weblogin/<str:email_str>/', views.weblogin, name='weblogin'),
     path('weblogout/', views.weblogout, name='weblogout'),
     path('register/', views.registeruser, name='registeruser'),
+    path('tasks/add/',views.add_task, name='add_task'),
 ]

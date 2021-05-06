@@ -16,9 +16,9 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
+
 class UserMatch(models.Model):
     estring = models.CharField(max_length=20)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE)
-

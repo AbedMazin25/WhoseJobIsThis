@@ -54,7 +54,7 @@
         {% if is_login %}
             <div class="col-md-3">
                 <h5>You are logged in as {{ current_user }}</h5>
-                <a class="btn btn-default btn-block" href="">Add a task</a>
+                <a class="btn btn-default btn-block" href="{% url 'taskmanager:add_task' %}">Add a task</a>
                 <a href="{% url 'taskmanager:weblogout' %}"class="btn btn-default btn-block">Logout</a>
             </div>
         {% else %}
